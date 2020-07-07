@@ -7,14 +7,44 @@
 * [License](#license)
 * [Pull Requests](#pull)
 
-# react-native-responsive-screen
+# react-native-responsive-screen-hooks
 
-[![npm version](https://badge.fury.io/js/react-native-responsive-screen.svg)](https://www.npmjs.com/package/react-native-responsive-screen)
+[![npm version](https://badge.fury.io/js/react-native-responsive-screen.svg)](https://www.npmjs.com/package/react-native-responsive-screen-hooks)
 [![npm](https://img.shields.io/npm/dm/react-native-responsive-screen.svg)]()
 
-<i>react-native-responsive-screen</i> is a small library that provides 2 simple methods so that React Native developers can code their UI elements fully responsive. No media queries needed.
+<i>react-native-responsive-screen-hooks</i> is a small library that provides 2 simple methods so that React Native developers can code their UI elements fully responsive. No media queries needed.
 
 It also provides an optional third method for screen orientation detection and automatic rerendering according to new dimensions.
+
+NOTE:
+Original Author:- https://www.npmjs.com/package/react-native-responsive-screen
+This is the modification of the original library package to extend support for React-Hooks/
+Functional Components. There is a slight modification that needs to be done for using this library with React Hooks. Here is the change that needs to be done when you are listening 
+for Screen Orientation changes:- 
+
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+  listenOrientationChange as lor,
+  removeOrientationListener as rol,
+} from 'react-native-responsive-screen-hooks';
+  
+
+// TODO: Add a useState for monitoring the orientation of screen
+  const [orientation, setOrientation] = React.useState('portrait');
+
+  useEffect(() => {
+
+    // TODO: Pass the setter function of useState to the listenOrientationChange
+    // In case of class component you need to pass context of class that is 'this' keyword.
+    // NOTE: This library will only work for functional component using useEffect
+    // For class based component please refer the original library package :-
+    // Original Author:- https://www.npmjs.com/package/react-native-responsive-screen
+    lor(setOrientation);
+    return () => {
+      rol();
+    };
+  }, []);
 
 Give it a try and make your life simpler! 
 
@@ -24,7 +54,13 @@ Check out [this medium article](https://medium.com/react-native-training/build-r
 
 # Installation
 
-`npm install react-native-responsive-screen --save`
+`npm i react-native-responsive-screen-hooks`
+
+OR
+
+`yarn add react-native-responsive-screen-hooks`
+
+Note: Linking not needed.
 
 # Usage
 * After the package has installed, when application loads (in real device and/or emulator), it detects the screen's width and height. I.e. for Samsung A5 2017 model it detects `width: 360DP` and `height: 640DP` (these are the values without taking into account the device's scale factor).
@@ -44,7 +80,7 @@ Check out [this medium article](https://medium.com/react-native-training/build-r
 
 ## 1. How to use with StyleSheet.create() and without orientation change support 
 ```javascript
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen-hooks';
 
 class Login extends Component {
   render() {
@@ -71,15 +107,15 @@ const styles = StyleSheet.create({
 
 export default Login;
 ```
-You can find a working example of this over the [related example repository](https://github.com/marudy/react-native-responsive-screen/blob/master/examples/responsive-screen/README.md)
+You can find a working example of this over the [related example repository](https://github.com/shubhambathe1/react-native-responsive-screen-hooks/tree/master/examples/responsive-screen/README.md)
 
 
 ## 2. How to use with StyleSheet.create() and with orientation change support
-Check the README of the [related example repository](https://github.com/marudy/react-native-responsive-screen/blob/master/examples/responsive-screen-orientation-change/README.md)
+Check the README of the [related example repository](https://github.com/shubhambathe1/react-native-responsive-screen-hooks/tree/master/examples/responsive-screen-orientation-change/README.md)
 
 
 ## 3. How to use with styled components
-Check the README of the [related example repository](https://github.com/marudy/react-native-responsive-screen/blob/master/examples/responsive-screen-styled-components/README.md)
+Check the README of the [related example repository](https://github.com/shubhambathe1/react-native-responsive-screen-hooks/tree/master/examples/responsive-screen-styled-components/README.md)
 
 
 # How do I know it works for all devices ?
