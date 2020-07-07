@@ -22,20 +22,25 @@ This is the modification of the original library package to extend support for R
 Functional Components. There is a slight modification that needs to be done for using this library with React Hooks. Here is the change that needs to be done when you are listening 
 for Screen Orientation changes:- 
 
+```javascript
+// packages
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import {
   widthPercentageToDP,
   heightPercentageToDP,
   listenOrientationChange as lor,
   removeOrientationListener as rol,
 } from 'react-native-responsive-screen-hooks';
-  
 
-// TODO: Add a useState for monitoring the orientation of screen
+function App() {
+
+  // TODO: Add a useState for monitoring the orientation of screen
   const [orientation, setOrientation] = React.useState('portrait');
 
   useEffect(() => {
 
-    // TODO: Pass the setter function of useState to the listenOrientationChange
+    // TODO: Pass setter function of useState to the listenOrientationChange as a parameter.
     // In case of class component you need to pass context of class that is 'this' keyword.
     // NOTE: This library will only work for functional component using useEffect
     // For class based component please refer the original library package :-
@@ -45,6 +50,40 @@ import {
       rol();
     };
   }, []);
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'gray',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    responsiveBox: {
+      width: widthPercentageToDP('84.5%'),
+      height: heightPercentageToDP('17%'),
+      borderWidth: 2,
+      borderColor: 'orange',
+      flexDirection: 'column',
+      justifyContent: 'space-around'
+    },
+    text: {
+      color: 'white'
+    }
+  });
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.responsiveBox}>
+        <Text style={styles.text}>This box is always of 84.5% width and 17% height.</Text>
+        <Text style={styles.text}>Test it by running this example repo in phones/
+            emulators with screens of various dimensions and pixel per inch (ppi).</Text>
+      </View>
+    </View>
+  );
+}
+
+export default App;
+```
 
 Give it a try and make your life simpler! 
 
@@ -60,7 +99,7 @@ OR
 
 `yarn add react-native-responsive-screen-hooks`
 
-Note: Linking not needed.
+Note: Linking not needed. Pod install not needed for iOS.
 
 # Usage
 * After the package has installed, when application loads (in real device and/or emulator), it detects the screen's width and height. I.e. for Samsung A5 2017 model it detects `width: 360DP` and `height: 640DP` (these are the values without taking into account the device's scale factor).

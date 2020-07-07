@@ -1,5 +1,5 @@
 # Conteúdo
-* [Sobre](#react-native-responsive-screen)
+* [Sobre](#react-native-responsive-screen-hooks)
 * [Instalação](#instalação)
 * [Utilização](#utilização)
 * [Exemplos](#exemplos)
@@ -7,14 +7,83 @@
 * [Licença](#licença)
 * [Pull Requests](#pull)
 
-# react-native-responsive-screen
+# react-native-responsive-screen-hooks
 
-[![versão npm](https://badge.fury.io/js/react-native-responsive-screen.svg)](https://www.npmjs.com/package/react-native-responsive-screen)
+[![versão npm](https://badge.fury.io/js/react-native-responsive-screen.svg)](https://www.npmjs.com/package/react-native-responsive-screen-hooks)
 [![npm](https://img.shields.io/npm/dm/react-native-responsive-screen.svg)]()
 
-<i>react-native-responsive-screen</i> é uma pequena biblioteca que provê 2 métodos simples para que desenvolvedores React Native possam criar componentes completamente responsivos. Nenhuma media query é necessária.
+<i>react-native-responsive-screen-hooks</i> é uma pequena biblioteca que provê 2 métodos simples para que desenvolvedores React Native possam criar componentes completamente responsivos. Nenhuma media query é necessária.
 
 A biblioteca entrega também um terceiro método opcional para detectar a orientação da tela e renderizar as novas dimensões automaticamente em caso de mudança.
+
+NOTA:
+Autor original: - https://www.npmjs.com/package/react-native-responsive-screen
+Esta é a modificação do pacote original da biblioteca para estender o suporte a React-Hooks /
+Componentes funcionais. Há uma pequena modificação que precisa ser feita para usar esta biblioteca com o React Hooks. Aqui está a mudança que precisa ser feita quando você está ouvindo
+para alterações na orientação da tela: -
+
+```javascript
+// packages
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import {
+  widthPercentageToDP,
+  heightPercentageToDP,
+  listenOrientationChange as lor,
+  removeOrientationListener as rol,
+} from 'react-native-responsive-screen-hooks';
+
+function App() {
+
+  // TODO: Add a useState for monitoring the orientation of screen
+  const [orientation, setOrientation] = React.useState('portrait');
+
+  useEffect(() => {
+
+    // TODO: Pass setter function of useState to the listenOrientationChange as a parameter.
+    // In case of class component you need to pass context of class that is 'this' keyword.
+    // NOTE: This library will only work for functional component using useEffect
+    // For class based component please refer the original library package :-
+    // Original Author:- https://www.npmjs.com/package/react-native-responsive-screen
+    lor(setOrientation);
+    return () => {
+      rol();
+    };
+  }, []);
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'gray',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    responsiveBox: {
+      width: widthPercentageToDP('84.5%'),
+      height: heightPercentageToDP('17%'),
+      borderWidth: 2,
+      borderColor: 'orange',
+      flexDirection: 'column',
+      justifyContent: 'space-around'
+    },
+    text: {
+      color: 'white'
+    }
+  });
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.responsiveBox}>
+        <Text style={styles.text}>This box is always of 84.5% width and 17% height.</Text>
+        <Text style={styles.text}>Test it by running this example repo in phones/
+            emulators with screens of various dimensions and pixel per inch (ppi).</Text>
+      </View>
+    </View>
+  );
+}
+
+export default App;
+```
 
 Faça um teste e deixe sua vida mais fácil! 
 
@@ -24,7 +93,13 @@ Veja [este artigo no medium (em inglês)](https://medium.com/react-native-traini
 
 # Instalação
 
-`npm install react-native-responsive-screen --save`
+`npm i react-native-responsive-screen-hooks`
+
+OR
+
+`yarn add react-native-responsive-screen-hooks`
+
+Nota: Vinculação não necessária. Instalação do pod não necessária para iOS.
 
 # Utilização
 * Depois da instalação da dependência, quando a aplicação é iniciada (em dispositivos reais e/ou emulador), largura e altura da tela são detectados. I.e. para o modelo Samsung A5 2017 é detectado `width: 360DP` e `height: 640DP` (estes valores não levam em consideração o fator de escala do dispositivo).
@@ -43,7 +118,7 @@ Veja [este artigo no medium (em inglês)](https://medium.com/react-native-traini
 
 ## 1. Como usar com StyleSheet.create() sem suporte para mudança de orientação da tela 
 ```javascript
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen-hooks';
 
 class Login extends Component {
   render() {
@@ -70,15 +145,15 @@ const styles = StyleSheet.create({
 
 export default Login;
 ```
-Você encontra um exemplo funcional no [repositório de exemplos](https://github.com/marudy/react-native-responsive-screen/blob/master/examples/responsive-screen/README.md)
+Você encontra um exemplo funcional no [repositório de exemplos](https://github.com/shubhambathe1/react-native-responsive-screen-hooks/tree/master/examples/responsive-screen/README.md)
 
 
 ## 2. Como utilizar com StyleSheet.create() e suporte a mudança de orientação de tela
-Veja o README do [repositório de exemplos](https://github.com/marudy/react-native-responsive-screen/blob/master/examples/responsive-screen-orientation-change/README.md)
+Veja o README do [repositório de exemplos](https://github.com/shubhambathe1/react-native-responsive-screen-hooks/tree/master/examples/responsive-screen-orientation-change/README.md)
 
 
 ## 3. Como utiliar com componentes estilizados
-Veja o README do [repositório de exemplos](https://github.com/marudy/react-native-responsive-screen/blob/master/examples/responsive-screen-styled-components/README.md)
+Veja o README do [repositório de exemplos](https://github.com/shubhambathe1/react-native-responsive-screen-hooks/tree/master/examples/responsive-screen-styled-components/README.md)
 
 
 # Como eu sei que funciona em todos os dispositivos ?

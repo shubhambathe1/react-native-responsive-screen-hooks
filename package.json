@@ -1,0 +1,46 @@
+{
+  "name": "react-native-responsive-screen-hooks",
+  "version": "1.4.2",
+  "description": "NOTE: This library will only work for functional component using useEffect",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubhambathe1/react-native-responsive-screen-hooks.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-native-hooks",
+    "responsive-ui",
+    "responsive-view",
+    "responsive-screen",
+    "responsive"
+  ],
+  "author": "Shubham Bathe <shubhambathe1@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shubhambathe1/react-native-responsive-screen-hooks/issues"
+  },
+  "contributors": [
+    {
+      "name": "Tasos Maroudas",
+      "email": "maroudasa@gmail.com",
+      "url": "https://github.com/marudy"
+    },
+    {
+      "name": "Chrysa Kaia",
+      "email": "kaia.chrysa@gmail.com",
+      "url": "https://github.com/ckaia"
+    },
+    {
+      "name": "Shubham Bathe",
+      "email": "shubhambathe1@gmail.com"
+    }
+  ],
+  "homepage": "https://github.com/shubhambathe1/react-native-responsive-screen-hooks#readme"
+}

@@ -1,21 +1,19 @@
 // packages
-import * as React from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen-hooks';
 import styled from 'styled-components';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <Container>
-        <ResponsiveBox>
-          <DemoText>This box is always of 84.5% width and 17% height.</DemoText>
-          <DemoText>Test it by running this example repo in phones/
+export default function App() {
+  return (
+    <Container>
+      <ResponsiveBox>
+        <DemoText>This box is always of 84.5% width and 17% height.</DemoText>
+        <DemoText>Test it by running this example repo in phones/
             emulators with screens of various dimensions and pixel per inch (ppi).</DemoText>
-        </ResponsiveBox>
-      </Container>
-    );
-  }
+      </ResponsiveBox>
+    </Container>
+  );
 }
 
 const Container = styled.View`

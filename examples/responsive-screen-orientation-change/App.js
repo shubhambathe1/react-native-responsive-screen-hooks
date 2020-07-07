@@ -8,7 +8,7 @@ import {
   removeOrientationListener as rol,
 } from 'react-native-responsive-screen-hooks';
 
-function App() {
+export default function App() {
 
   // TODO: Add a useState for monitoring the orientation of screen
   const [orientation, setOrientation] = React.useState('portrait');
@@ -56,5 +56,3 @@ function App() {
     </View>
   );
 }
-
-export default App;
